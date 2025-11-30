@@ -34,15 +34,14 @@
     }
 
      /* 頂部導覽列 */
-    .site-header {
+     .site-header {
+      background: #ffffffee;
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: rgba(0,0,0,0.25);      /* 半透明蓋在影片上比較像你截圖那個 */
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      color: #fff;
-  }
+      z-index: 10;
+    }
     
     .header-inner {
       max-width: 1080px;
@@ -350,7 +349,7 @@
       </div>
       <nav class="header-nav">
         <a href="index.html">首頁</a>
-        <a href="#">所有商品</a>
+        <a href="#products">所有商品</a>
         <a href="#">最新消息</a>
         <span class="header-cart-pill">
           購物車
@@ -363,7 +362,7 @@
   <!-- 主內容 -->
   <main class="page">
     <div class="breadcrumb">
-      <a href="index.html">首頁</a> ／ <a href="preorder.html">所有商品</a> ／
+      <a href="index.html">首頁</a> ／ <a href="#products">所有商品</a> ／
       <span>初鹿部落年祭限定水洗長袖｜MULIVELIVEK 限定款</span>
     </div>
 
@@ -384,8 +383,10 @@
       <section class="product-info">
         <h1 class="product-title">初鹿部落年祭限定水洗長袖｜MULIVELIVEK 限定款</h1>
         <p class="product-subtitle">
-          今年的年祭，我們以 「道路」與「牽繫」 為主軸推出 MULIVELIVEK × 初鹿部落的限定水洗長袖。
-圖像結合初鹿大地的形狀、初鹿族人的記憶、以及文化站長輩的象徵，讓每一道線條，都像土地的紋路一樣延伸——延伸到祖靈、延伸到部落、延伸到彼此。
+          今年的年祭，我們以 「道路」與「牽繫」 為主軸
+          推出 MULIVELIVEK × 初鹿部落的限定水洗長袖。
+          圖像結合初鹿大地的形狀、初鹿族人的記憶、以及文化站長輩的象徵。
+          讓每一道線條，都像土地的紋路一樣延伸——延伸到祖靈、延伸到部落、延伸到彼此。
         </p>
 
         <div class="product-price">NT$ 450</div>
@@ -416,7 +417,6 @@
     </div>
 
     <div class="page-links">
-      <a href="preorder.html">回到衣服預購總頁</a>
       <a href="index.html">回首頁</a>
     </div>
   </main>
