@@ -579,7 +579,16 @@
               </div>
             </div>
           </div>
-
+<div class="field">
+  <label for="payment">付款方式<span class="required">*</span></label>
+  <select id="payment" name="payment" required>
+    <option value="">請選擇付款方式</option>
+    <option value="transfer">匯款（ATM / 網銀轉帳）</option>
+  </select>
+  <div class="helper">
+    完成匯款後請回報帳號末五碼，我們確認款項後會安排出貨。
+  </div>
+</div>
           <!-- 2. 單件商品加入購物車 -->
           <div class="panel">
             <h3 class="panel-title">
@@ -823,35 +832,37 @@
     });
 
     orderForm.addEventListener('submit', e => {
-      formError.style.display = 'none';
+  formError.style.display = 'none';
 
-      const buyerName = document.getElementById('buyerName').value.trim();
-      const buyerContact = document.getElementById('buyerContact').value.trim();
-      const shipping = document.getElementById('shipping').value.trim();
+  const buyerName = document.getElementById('buyerName').value.trim();
+  const buyerContact = document.getElementById('buyerContact').value.trim();
+  const shipping = document.getElementById('shipping').value.trim();
+  const payment = document.getElementById('payment').value.trim(); // 新增
 
-      if (!buyerName || !buyerContact || !shipping || cart.length === 0) {
-        e.preventDefault();
-        formError.style.display = 'block';
-        return;
-      }
+  if (!buyerName || !buyerContact || !shipping || !payment || cart.length === 0) {
+    e.preventDefault();
+    formError.style.display = 'block';
+    return;
+  }
 
-      e.preventDefault(); // 示範用，正式接後端時可移除
+  e.preventDefault(); // 示範用，正式接後端時可移除
 
-      const buyerRegion = document.getElementById('buyerRegion').value.trim();
-      const orderNote = document.getElementById('orderNote').value.trim();
+  const buyerRegion = document.getElementById('buyerRegion').value.trim();
+  const orderNote = document.getElementById('orderNote').value.trim();
 
-      const payload = {
-        buyerName,
-        buyerContact,
-        buyerRegion,
-        shipping,
-        orderNote,
-        items: cart
-      };
+  const payload = {
+    buyerName,
+    buyerContact,
+    buyerRegion,
+    shipping,
+    payment,   // 新增
+    orderNote,
+    items: cart
+  };
 
-      console.log('預購資料：', payload);
-      alert('預購資料已整理好（已顯示於 console）。正式使用時可將這份資料串接到後端或 Google 表單。');
-    });
+  console.log('預購資料：', payload);
+  alert('預購資料已整理好（已顯示於 console）。正式使用時可將這份資料串接到後端或 Google 表單。');
+});
 
     renderCart();
   </script>
