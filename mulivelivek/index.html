@@ -522,7 +522,7 @@
         justify-content: flex-end;
       }
     }
-   /* YouTube 影片大區塊 */
+  /* YouTube 影片大區塊（背景影片） */
 .video-section {
   margin-top: 32px;
   margin-bottom: 32px;
@@ -536,6 +536,16 @@
   position: relative;
   width: 100%;
   padding-top: 56.25%; /* 16:9 比例 */
+}
+
+/* 背景影片：顯示但點不到 */
+.video-container iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none; /* ⬅⬅⬅ 這行讓影片無法被點擊 */
 }
 
 /* 讓影片完全 cover 住區塊 */
@@ -579,14 +589,13 @@
   <!-- 主內容 -->
   <main class="page" id="top">
     <!-- Hero 區 -->
-   <!-- 🔥 YouTube 背景影片區塊 -->
+<!-- 🔥 背景影片區塊（點不到） -->
 <section class="video-section">
   <div class="video-container">
     <iframe
       src="https://www.youtube.com/embed/CM7T1jdy_bw?autoplay=1&mute=1&loop=1&playlist=CM7T1jdy_bw&controls=0&showinfo=0&rel=0&modestbranding=1"
       frameborder="0"
-      allow="autoplay; fullscreen"
-      allowfullscreen
+      allow="autoplay"
     ></iframe>
   </div>
 </section>
