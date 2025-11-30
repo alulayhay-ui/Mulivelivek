@@ -33,16 +33,17 @@
       text-decoration: none;
     }
 
-    /* 頂部導覽列（跟預購頁 / 首頁一樣） */
+     /* 頂部導覽列 */
     .site-header {
-      background: #ffffffee;
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      z-index: 10;
-    }
+      z-index: 20;
+      background: rgba(0,0,0,0.25);      /* 半透明蓋在影片上比較像你截圖那個 */
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
 
+    
     .header-inner {
       max-width: 1080px;
       margin: 0 auto;
