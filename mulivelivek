@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>衣服預購表單</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg:#050816;
+      --card:#0b1220;
+      --accent:#5ba8ff;
+      --accent-soft:#7ab6ff;
+      --text:#e5ecff;
+      --muted:#9aa4c6;
+      --danger:#ff6b81;
+    }
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #1b2742 0, #050816 45%, #000 100%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 12px;
+      letter-spacing: .18em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #1b2545 0, var(--card) 55%);
+      border-radius: 24px;
+      padding: 24px 20px 20px;
+      box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(151, 174, 255, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at -10% -10%, rgba(91,168,255,.4), transparent 60%),
+        radial-gradient(circle at 110% 110%, rgba(255,200,87,.35), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: .7;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h1 span.badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.17);
+      background: rgba(5, 8, 22, .8);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--accent-soft);
+    }
+
+    .subtitle {
+      margin: 0 0 16px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .notice {
+      font-size: 0.8rem;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px dashed rgba(255,255,255,.25);
+      background: rgba(5, 8, 22, .7);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .notice strong { color: var(--accent-soft); }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+
+    label {
+      font-weight: 500;
+    }
+
+    label span.required {
+      color: var(--danger);
+      margin-left: 2px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea {
+      padding: 9px 11px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(3, 6, 20, .9);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(154, 164, 198, .75);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent-soft);
+      box-shadow: 0 0 0 1px rgba(122,182,255,.6);
+      background: rgba(3, 8, 26, .95);
+    }
+
+    .helper {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .inline-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .inline-row .field {
+      flex: 1 1 0;
+    }
+
+    .size-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      position: relative;
+    }
+
+    .chip input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .chip label {
+      border-radius: 999px;
+      padding: 6px 11px;
+      border: 1px solid rgba(255,255,255,.25);
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--muted);
+      background: rgba(5, 8, 22, .8);
+      transition: all .18s ease;
+    }
+
+    .chip input:checked + label {
+      color: #050816;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      border-color: transparent;
+      box-shadow: 0 0 12px rgba(122,182,255,.7);
+    }
+
+    .footer {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .submit-btn {
+      flex: 1;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #050816;
+      box-shadow:
+        0 10px 25px rgba(0,0,0,.6),
+        0 0 16px rgba(122,182,255,.9);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow:
+        0 14px 30px rgba(0,0,0,.7),
+        0 0 20px rgba(122,182,255,1);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+      box-shadow:
+        0 6px 14px rgba(0,0,0,.7),
+        0 0 10px rgba(122,182,255,.8);
+    }
+
+    .footer-note {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: right;
+      flex: 0 0 auto;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px 16px 16px;
+        border-radius: 20px;
+      }
+      h1 { font-size: 1.3rem; }
+      .subtitle { font-size: 0.85rem; }
+      .footer-note { text-align: left; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="logo">PRE-ORDER FORM</div>
+
+    <div class="card">
+      <div class="card-inner">
+        <h1>
+          部落限定衣服預購
+          <span class="badge">PRE-ORDER</span>
+        </h1>
+        <p class="subtitle">
+          本預購為少量製作，將依實際填寫數量排單製作。<br />
+          請確認尺寸與聯絡方式，送出後若需修改可私訊IG或LINE與我們聯繫。
+        </p>
+
+        <div class="notice">
+          <span>⚠️</span>
+          <span>
+            <strong>預計出貨時間：</strong>2026 / 01 下旬左右（實際出貨時間依工廠排單為主）。
+          </span>
+        </div>
+
+        <form action="#" method="post">
+          <!-- 基本資料 -->
+          <div class="field">
+            <label for="name">姓名<span class="required">*</span></label>
+            <input id="name" name="name" type="text" placeholder="請輸入真實姓名" required>
+          </div>
+
+          <div class="inline-row">
+            <div class="field">
+              <label for="contact">聯絡方式<span class="required">*</span></label>
+              <input id="contact" name="contact" type="text" placeholder="電話或 IG 帳號" required>
+              <div class="helper">例：0900-000000 / @your_ig_name</div>
+            </div>
+            <div class="field">
+              <label for="city">地區</label>
+              <input id="city" name="city" type="text" placeholder="例：台東初鹿 / 桃園中壢">
+            </div>
+          </div>
+
+          <!-- 商品資訊 -->
+          <div class="field">
+            <label for="style">款式<span class="required">*</span></label>
+            <select id="style" name="style" required>
+              <option value="">請選擇款式</option>
+              <option value="tee-black">A. 黑色短T（主Logo）</option>
+              <option value="tee-white">B. 白色短T（主Logo）</option>
+              <option value="hoodie">C. 厚棉帽T</option>
+              <!-- 之後可自行新增 -->
+            </select>
+          </div>
+
+          <div class="inline-row">
+            <div class="field">
+              <label for="color">顏色</label>
+              <select id="color" name="color">
+                <option value="">請選擇顏色（如適用）</option>
+                <option value="black">黑</option>
+                <option value="white">白</option>
+                <option value="brown">咖啡</option>
+                <option value="green">深綠</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="quantity">數量<span class="required">*</span></label>
+              <input id="quantity" name="quantity" type="number" min="1" value="1" required>
+            </div>
+          </div>
+
+          <!-- 尺寸選擇 -->
+          <div class="field">
+            <label>尺寸<span class="required">*</span></label>
+            <div class="size-options">
+              <div class="chip">
+                <input type="radio" id="size-xs" name="size" value="XS" required>
+                <label for="size-xs">XS</label>
+              </div>
+              <div class="chip">
+                <input type="radio" id="size-s" name="size" value="S">
+                <label for="size-s">S</label>
+              </div>
+              <div class="chip">
+                <input type="radio" id="size-m" name="size" value="M">
+                <label for="size-m">M</label>
+              </div>
+              <div class="chip">
+                <input type="radio" id="size-l" name="size" value="L">
+                <label for="size-l">L</label>
+              </div>
+              <div class="chip">
+                <input type="radio" id="size-xl" name="size" value="XL">
+                <label for="size-xl">XL</label>
+              </div>
+              <div class="chip">
+                <input type="radio" id="size-2xl" name="size" value="2XL">
+                <label for="size-2xl">2XL</label>
+              </div>
+            </div>
+            <div class="helper">若不確定尺寸，建議以平量衣服比較，或私訊詢問。</div>
+          </div>
+
+          <!-- 寄送/取貨 -->
+          <div class="field">
+            <label for="shipping">取貨方式<span class="required">*</span></label>
+            <select id="shipping" name="shipping" required>
+              <option value="">請選擇取貨方式</option>
+              <option value="store">超商取貨（7-11 / 全家）</option>
+              <option value="home">宅配（需加運費）</option>
+              <option value="face">活動現場/部落面交</option>
+            </select>
+            <div class="helper">選擇超商或宅配者，之後會再與您確認地址與運費。</div>
+          </div>
+
+          <!-- 備註 -->
+          <div class="field">
+            <label for="note">備註</label>
+            <textarea id="note" name="note" rows="3" placeholder="想說的話、特別需求（例如：要與誰一起寄、是否作為禮物包裝等）"></textarea>
+          </div>
+
+          <div class="footer">
+            <button class="submit-btn" type="submit">
+              送出預購
+            </button>
+            <div class="footer-note">
+              送出表單後請保留畫面截圖，<br />以利日後對單使用。
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
