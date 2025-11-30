@@ -2,99 +2,724 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>Mulivelivek 初鹿部落｜訂單入口</title>
+  <title>Mulivelivek 初鹿部落｜首頁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
       --bg: #f7f3ec;
+      --bg-soft: #fffdf8;
       --card: #ffffff;
       --border: #e3ddcf;
       --accent: #c58543;
       --accent-dark: #92572a;
       --text: #2f2415;
       --muted: #7b6d5c;
+      --black: #1b130b;
     }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
+    * {
+      box-sizing: border-box;
     }
-    .wrapper{
-      max-width:420px;
-      width:100%;
-      background:var(--card);
-      border-radius:16px;
-      border:1px solid var(--border);
-      padding:20px 18px 18px;
-      box-shadow:0 12px 30px rgba(0,0,0,.08);
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
-    h1{
-      margin:0 0 6px;
-      font-size:1.4rem;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
-    p{
-      margin:0 0 16px;
-      font-size:0.9rem;
-      color:var(--muted);
+
+    /* 共同按鈕樣式 */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
     }
-    .btn{
-      width:100%;
-      border-radius:999px;
-      padding:10px 16px;
-      border:1px solid var(--accent);
-      background:var(--accent);
-      color:#fff;
-      font-size:0.95rem;
-      font-weight:600;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      cursor:pointer;
-      margin-bottom:10px;
+    .btn:hover {
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+      transform: translateY(-1px);
     }
-    .btn:hover{
-      background:var(--accent-dark);
-      border-color:var(--accent-dark);
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: #d5c8b4;
     }
-    .btn-secondary{
-      background:#fffdf8;
-      color:var(--accent-dark);
-      border-color:var(--border);
+    .btn-outline:hover {
+      background: #f0e7d9;
+      color: var(--accent-dark);
     }
-    .btn-secondary:hover{
-      background:#f0e7d9;
-      border-color:var(--accent-dark);
+
+    /* 頂部導覽列 */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #ffffffdd;
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
     }
-    .note{
-      font-size:0.78rem;
-      color:var(--muted);
-      margin-top:4px;
-      line-height:1.5;
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 30% 20%, #f8e1b4, #c98c46);
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .brand-text-main {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .brand-text-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .header-nav a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+    .header-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.15s ease;
+    }
+    .header-nav a:hover::after {
+      width: 100%;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .header-link {
+      cursor: pointer;
+    }
+    .header-link:hover {
+      color: var(--accent-dark);
+    }
+    .header-cart-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .header-cart-count {
+      min-width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+
+    /* 主內容容器 */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
+
+    /* Hero 區塊 */
+    .hero {
+      margin-top: 10px;
+      border-radius: 20px;
+      overflow: hidden;
+      background:
+        linear-gradient(120deg, rgba(21, 16, 10, 0.92), rgba(71, 45, 27, 0.9)),
+        url('hero.jpg') center/cover no-repeat;
+      color: #fff;
+      min-height: 340px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    }
+    .hero-left {
+      padding: 26px 24px 26px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+    .hero-tag {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #f6e2ba;
+    }
+    .hero-title-main {
+      font-size: 2.1rem;
+      font-weight: 700;
+    }
+    .hero-title-sub {
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+    .hero-desc {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: #f1e1cb;
+      max-width: 420px;
+      line-height: 1.6;
+    }
+    .hero-actions {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hero-note {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: #e7d5bc;
+    }
+
+    .hero-right {
+      position: relative;
+      padding: 24px 24px 24px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-card {
+      width: 100%;
+      max-width: 280px;
+      background: rgba(247, 240, 227, 0.12);
+      border-radius: 18px;
+      border: 1px solid rgba(232, 210, 178, 0.7);
+      padding: 14px 14px 12px;
+      backdrop-filter: blur(6px);
+    }
+    .hero-card-tag {
+      font-size: 0.75rem;
+      color: #f6e2ba;
+      margin-bottom: 4px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hero-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .hero-card-img {
+      margin: 8px 0 10px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #d9c2a2;
+      padding-top: 60%;
+      position: relative;
+    }
+    .hero-card-img-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      text-align: center;
+      color: #3b2e23;
+      padding: 8px;
+    }
+    .hero-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #f3e1c3;
+    }
+    .hero-card-price {
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    /* New Arrivals 區塊 */
+    .section {
+      margin-top: 32px;
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .section-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 640px) {
+      .product-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .product-card {
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-thumb {
+      position: relative;
+      padding-top: 80%;
+      background: #e5ded1;
+    }
+    .product-thumb-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: #4c4032;
+      padding: 8px;
+      text-align: center;
+    }
+    .product-body {
+      padding: 10px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.86rem;
+    }
+    .product-name {
+      font-weight: 600;
+    }
+    .product-tagline {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .product-price {
+      margin-top: 2px;
+      font-weight: 600;
+      color: var(--accent-dark);
+    }
+
+    /* IG 區塊 */
+    .ig-section {
+      margin-top: 40px;
+      padding: 20px 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 20px;
+      align-items: center;
+    }
+    .ig-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .ig-sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .ig-handle {
+      font-size: 0.9rem;
+      margin-top: 4px;
+      color: var(--accent-dark);
+    }
+    .ig-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .ig-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px dashed var(--border);
+      background: #fffdf8;
+    }
+    .ig-preview {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .ig-photo {
+      background: #ddd1c2;
+      border-radius: 10px;
+      padding-top: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .ig-photo-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #4c4032;
+      text-align: center;
+      padding: 4px;
+    }
+
+    /* 頁尾 */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+      padding: 18px 16px 20px;
+      background: #fffdf8;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 20px;
+    }
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+    .footer-desc {
+      line-height: 1.6;
+    }
+    .footer-social,
+    .footer-payments,
+    .footer-links {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+    .footer-pill:hover {
+      border-color: var(--accent-dark);
+      color: var(--accent-dark);
+    }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 10px auto 0;
+      padding-top: 6px;
+      border-top: 1px dashed #e0d6c6;
+      font-size: 0.76rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+    }
+    .footer-bottom-links a {
+      margin-right: 8px;
+    }
+
+    /* RWD 調整 */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-right {
+        display: none;
+      }
+      .ig-section {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 720px) {
+      .header-inner {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .header-nav {
+        flex: 1 1 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      .header-right {
+        width: 100%;
+        justify-content: flex-end;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <h1>初鹿部落訂單入口</h1>
-    <p>
-      步驟一：先填「我要預購」留下款式與數量。<br>
-      步驟二：匯款完成後，再回來點「匯款完成，要填送貨資訊」。
-    </p>
-    <button class="btn" onclick="location.href='preorder.html'">
-      我要預購
-    </button>
-    <button class="btn btn-secondary" onclick="location.href='shipping.html'">
-      匯款完成，要填送貨資訊
-    </button>
-    <div class="note">
-      建議先將此頁加入書籤，方便匯款後回來填寫送貨資訊。
+  <!-- 導覽列 -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-text-main">Mulivelivek 初鹿部落</div>
+          <div class="brand-text-sub">'inavayan</div>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="#top">首頁</a>
+        <a href="#products">所有商品</a>
+        <a href="#news">最新消息</a>
+        <a href="#address">本店地址</a>
+      </nav>
+      <div class="header-right">
+        <span class="header-link">登入</span>
+        <span class="header-link">註冊</span>
+        <div class="header-cart-pill">
+          購物車
+          <span class="header-cart-count">0</span>
+        </div>
+      </div>
     </div>
-  </div>
+  </header>
+
+  <!-- 主內容 -->
+  <main class="page" id="top">
+    <!-- Hero 區 -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-tag">'inavayan</div>
+        <div class="hero-title-main">Mulivelivek</div>
+        <div class="hero-title-sub">初鹿部落日常 × 年祭限定設計</div>
+        <p class="hero-desc">
+          從部落大地色、山風與歌聲出發，把初鹿人的記憶織進每一件衣服裡。一起把今年的相聚，留下可以穿著的紀念。
+        </p>
+        <div class="hero-actions">
+          <!-- 這裡連到你的預購頁 -->
+          <a class="btn" href="preorder.html">立即選購</a>
+          <!-- 這裡連到你的匯款完成頁 -->
+          <a class="btn btn-outline" href="shipping.html">我已匯款，要填送貨資訊</a>
+        </div>
+        <div class="hero-note">
+          小提醒：先在預購頁選好款式與尺寸放入購物車，再填寫聯絡資料與匯款資訊。
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-tag">New Arrival</div>
+          <div class="hero-card-title">初鹿部落年祭限定水洗長袖</div>
+          <div class="hero-card-img">
+            <div class="hero-card-img-inner">
+              這裡可以換成真正的商品照片。<br/>
+              目前先用示意色塊展示。
+            </div>
+          </div>
+          <div class="hero-card-meta">
+            <div>
+              <div class="hero-card-price">NT$ 450</div>
+              <div style="font-size:0.75rem;">年祭限定款｜預購制</div>
+            </div>
+            <div style="font-size:0.75rem;">S–2XL 尺寸</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 新品推薦區 -->
+    <section class="section" id="products">
+      <div class="section-header">
+        <div>
+          <div class="section-title">New Arrivals</div>
+          <div class="section-sub">今年的新品設計，從初鹿大地與部落紋路長出來。</div>
+        </div>
+        <a href="preorder.html" class="btn btn-outline" style="font-size:0.8rem;">
+          查看全部
+        </a>
+      </div>
+
+      <div class="product-grid">
+        <!-- 商品 1 -->
+        <a href="preorder.html" class="product-card">
+          <div class="product-thumb">
+            <div class="product-thumb-inner">
+              這裡可以放<br/>年祭限定水洗長袖照片
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">初鹿部落年祭限定水洗長袖</div>
+            <div class="product-tagline">以大地色與圖騰記錄今年的相聚。</div>
+            <div class="product-price">NT$ 450</div>
+          </div>
+        </a>
+
+        <!-- 商品 2（可之後換成別款）-->
+        <a href="preorder.html" class="product-card">
+          <div class="product-thumb">
+            <div class="product-thumb-inner">
+              第二款示意商品<br/>可之後替換為其他設計
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">部落日常長袖（大地棕）</div>
+            <div class="product-tagline">適合每天穿出門的小小部落記號。</div>
+            <div class="product-price">NT$ 450</div>
+          </div>
+        </a>
+
+        <!-- 商品 3 -->
+        <a href="preorder.html" class="product-card">
+          <div class="product-thumb">
+            <div class="product-thumb-inner">
+              第三款示意商品<br/>可以放之後新增款式
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">初鹿限定周邊</div>
+            <div class="product-tagline">從歌謠、祭儀延伸出的生活小物。</div>
+            <div class="product-price">NT$ 320</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- IG / 了解更多 -->
+    <section class="ig-section" id="news">
+      <div>
+        <div class="ig-title">了解更多｜初鹿事，初鹿人</div>
+        <p class="ig-sub">
+          想看更多祭典側拍、田裡的日常、文化站的阿嬤阿公們，歡迎到 IG 追蹤我們。預購時間、取貨公告也會優先更新在那邊。
+        </p>
+        <a class="btn" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+          追蹤 Instagram
+        </a>
+        <div class="ig-handle">@mulivelivek（範例，可換成你的 IG）</div>
+        <div class="ig-pill-row">
+          <div class="ig-pill">#初鹿部落</div>
+          <div class="ig-pill">#年祭限定</div>
+          <div class="ig-pill">#部落日常</div>
+        </div>
+      </div>
+      <div class="ig-preview">
+        <div class="ig-photo">
+          <div class="ig-photo-inner">年祭舞蹈 / 棚內花絮</div>
+        </div>
+        <div class="ig-photo">
+          <div class="ig-photo-inner">文化站阿公阿嬤種田的日常</div>
+        </div>
+        <div class="ig-photo">
+          <div class="ig-photo-inner">預購衣服實穿照</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="site-footer" id="address">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-title">Mulivelivek 初鹿部落</div>
+        <div class="footer-desc">
+          「Mulivelivek」在卑南語中意指風吹不太進來的地方，是山麓上的避風聚落。<br/>
+          透過衣服與周邊，把初鹿的故事、老人家的記憶，慢慢縫回日常生活。
+        </div>
+        <div class="footer-social" style="margin-top:8px;">
+          <span>追蹤我們：</span>
+          <button class="footer-pill">Instagram</button>
+          <button class="footer-pill">Facebook</button>
+        </div>
+      </div>
+      <div>
+        <div class="footer-title">本店地址</div>
+        <div class="footer-desc">
+          （這裡可以填入實際地址，例如）<br/>
+          台東縣卑南鄉初鹿村 xxx 號<br/>
+          營業時間與現場販售資訊可於最新消息查看。
+        </div>
+        <div class="footer-payments">
+          <span>付款方式：</span>
+          <span class="ig-pill">匯款 / 轉帳</span>
+          <span class="ig-pill">7-11 賣貨便</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mulivelivek 初鹿部落</div>
+      <div class="footer-bottom-links">
+        <a href="#">服務條款</a>|
+        <a href="#">隱私政策</a>|
+        <a href="#">退款政策</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
+
