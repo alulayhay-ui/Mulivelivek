@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>衣服預購表單</title>
+  <title>衣服預購表單（含購物車）</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
@@ -15,25 +15,21 @@
       --danger:#ff6b81;
     }
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #1b2742 0, #050816 45%, #000 100%);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background: radial-gradient(circle at top,#1b2742 0,#050816 45%,#000 100%);
       color: var(--text);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
-
     .wrapper {
       width: 100%;
-      max-width: 520px;
+      max-width: 860px;
     }
-
     .logo {
       text-align: center;
       margin-bottom: 12px;
@@ -42,237 +38,242 @@
       text-transform: uppercase;
       color: var(--muted);
     }
-
     .card {
-      background: radial-gradient(circle at top left, #1b2545 0, var(--card) 55%);
+      background: radial-gradient(circle at top left,#1b2545 0,var(--card) 55%);
       border-radius: 24px;
       padding: 24px 20px 20px;
-      box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.8),
-        0 0 0 1px rgba(151, 174, 255, 0.12);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.8),0 0 0 1px rgba(151,174,255,0.12);
       position: relative;
       overflow: hidden;
     }
-
     .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+      content:"";
+      position:absolute;
+      inset:0;
       background:
-        radial-gradient(circle at -10% -10%, rgba(91,168,255,.4), transparent 60%),
-        radial-gradient(circle at 110% 110%, rgba(255,200,87,.35), transparent 55%);
-      mix-blend-mode: screen;
-      opacity: .7;
-      pointer-events: none;
+        radial-gradient(circle at -10% -10%,rgba(91,168,255,.4),transparent 60%),
+        radial-gradient(circle at 110% 110%,rgba(255,200,87,.35),transparent 55%);
+      mix-blend-mode:screen;
+      opacity:.7;
+      pointer-events:none;
     }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
+    .card-inner { position:relative; z-index:1; }
     h1 {
-      margin: 0 0 4px;
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      margin:0 0 4px;
+      font-size:1.5rem;
+      display:flex;
+      align-items:center;
+      gap:8px;
     }
-
     h1 span.badge {
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.17);
-      background: rgba(5, 8, 22, .8);
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: var(--accent-soft);
+      font-size:0.75rem;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.17);
+      background:rgba(5,8,22,.8);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--accent-soft);
     }
-
     .subtitle {
-      margin: 0 0 16px;
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.5;
+      margin:0 0 16px;
+      font-size:0.9rem;
+      color:var(--muted);
+      line-height:1.5;
     }
-
+    .section-title {
+      margin:16px 0 6px;
+      font-size:0.95rem;
+      font-weight:600;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--accent-soft);
+    }
+    .section-title span {
+      font-size:0.75rem;
+      color:var(--muted);
+      margin-left:4px;
+      text-transform:none;
+      letter-spacing:0;
+    }
     .notice {
-      font-size: 0.8rem;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px dashed rgba(255,255,255,.25);
-      background: rgba(5, 8, 22, .7);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
+      font-size:0.8rem;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px dashed rgba(255,255,255,.25);
+      background:rgba(5,8,22,.7);
+      margin-bottom:14px;
+      display:flex;
+      align-items:flex-start;
+      gap:6px;
     }
-    .notice strong { color: var(--accent-soft); }
+    .notice strong { color:var(--accent-soft); }
 
     form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
     }
-
     .field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.9rem;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      font-size:0.9rem;
     }
-
-    label {
-      font-weight: 500;
-    }
-
-    label span.required {
-      color: var(--danger);
-      margin-left: 2px;
-    }
+    label { font-weight:500; }
+    label span.required { color:var(--danger); margin-left:2px; }
 
     input[type="text"],
     input[type="tel"],
     input[type="number"],
     select,
     textarea {
-      padding: 9px 11px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(3, 6, 20, .9);
-      color: var(--text);
-      font: inherit;
-      outline: none;
-      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+      padding:9px 11px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(3,6,20,.9);
+      color:var(--text);
+      font:inherit;
+      outline:none;
+      transition:border-color .18s ease,box-shadow .18s ease,background .18s ease;
     }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: rgba(154, 164, 198, .75);
+    input::placeholder,textarea::placeholder { color:rgba(154,164,198,.75); }
+    input:focus,select:focus,textarea:focus {
+      border-color:var(--accent-soft);
+      box-shadow:0 0 0 1px rgba(122,182,255,.6);
+      background:rgba(3,8,26,.95);
     }
+    .helper { font-size:0.75rem; color:var(--muted); }
+    .inline-row { display:flex; gap:10px; flex-wrap:wrap; }
+    .inline-row .field { flex:1 1 0; }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(122,182,255,.6);
-      background: rgba(3, 8, 26, .95);
-    }
-
-    .helper {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .inline-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .inline-row .field {
-      flex: 1 1 0;
-    }
-
-    .size-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .chip {
-      position: relative;
-    }
-
+    .size-options { display:flex; flex-wrap:wrap; gap:8px; }
+    .chip { position:relative; }
     .chip input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
     }
-
     .chip label {
-      border-radius: 999px;
-      padding: 6px 11px;
-      border: 1px solid rgba(255,255,255,.25);
-      font-size: 0.8rem;
-      cursor: pointer;
-      color: var(--muted);
-      background: rgba(5, 8, 22, .8);
-      transition: all .18s ease;
+      border-radius:999px;
+      padding:6px 11px;
+      border:1px solid rgba(255,255,255,.25);
+      font-size:0.8rem;
+      cursor:pointer;
+      color:var(--muted);
+      background:rgba(5,8,22,.8);
+      transition:all .18s ease;
     }
-
     .chip input:checked + label {
-      color: #050816;
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      border-color: transparent;
-      box-shadow: 0 0 12px rgba(122,182,255,.7);
+      color:#050816;
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      border-color:transparent;
+      box-shadow:0 0 12px rgba(122,182,255,.7);
     }
 
+    .btn {
+      border:none;
+      border-radius:999px;
+      padding:9px 16px;
+      font-size:0.9rem;
+      font-weight:600;
+      cursor:pointer;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .btn-primary {
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      color:#050816;
+      box-shadow:0 10px 25px rgba(0,0,0,.6),0 0 16px rgba(122,182,255,.9);
+      transition:transform .12s ease,box-shadow .12s ease,filter .12s ease;
+    }
+    .btn-primary:hover {
+      transform:translateY(-1px);
+      filter:brightness(1.03);
+      box-shadow:0 14px 30px rgba(0,0,0,.7),0 0 20px rgba(122,182,255,1);
+    }
+    .btn-primary:active {
+      transform:translateY(0);
+      box-shadow:0 6px 14px rgba(0,0,0,.7),0 0 10px rgba(122,182,255,.8);
+    }
+    .btn-ghost {
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .btn-danger {
+      background:transparent;
+      color:var(--danger);
+      border:1px solid rgba(255,107,129,.6);
+      font-size:0.8rem;
+      padding:5px 10px;
+    }
+
+    .cart {
+      margin-top:10px;
+      border-radius:16px;
+      background:rgba(5,8,22,.85);
+      border:1px solid rgba(255,255,255,.12);
+      padding:10px;
+      font-size:0.85rem;
+    }
+    .cart-empty {
+      color:var(--muted);
+      font-size:0.8rem;
+      padding:4px 2px;
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+    }
+    th,td {
+      padding:6px 4px;
+      text-align:left;
+      font-size:0.8rem;
+    }
+    th {
+      color:var(--muted);
+      border-bottom:1px solid rgba(255,255,255,.16);
+    }
+    tr + tr td { border-top:1px solid rgba(255,255,255,.06); }
+
+    .cart-summary {
+      margin-top:6px;
+      text-align:right;
+      font-size:0.8rem;
+      color:var(--muted);
+    }
     .footer {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
+      margin-top:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
     }
-
-    .submit-btn {
-      flex: 1;
-      border: none;
-      border-radius: 999px;
-      padding: 10px 16px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      color: #050816;
-      box-shadow:
-        0 10px 25px rgba(0,0,0,.6),
-        0 0 16px rgba(122,182,255,.9);
-      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-      box-shadow:
-        0 14px 30px rgba(0,0,0,.7),
-        0 0 20px rgba(122,182,255,1);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-      box-shadow:
-        0 6px 14px rgba(0,0,0,.7),
-        0 0 10px rgba(122,182,255,.8);
-    }
-
     .footer-note {
-      font-size: 0.7rem;
-      color: var(--muted);
-      text-align: right;
-      flex: 0 0 auto;
+      font-size:0.7rem;
+      color:var(--muted);
+      text-align:right;
+      flex:0 0 auto;
+    }
+    .error {
+      color:var(--danger);
+      font-size:0.78rem;
+      margin-top:4px;
+      display:none;
     }
 
-    @media (max-width: 480px) {
-      .card {
-        padding: 20px 16px 16px;
-        border-radius: 20px;
-      }
-      h1 { font-size: 1.3rem; }
-      .subtitle { font-size: 0.85rem; }
-      .footer-note { text-align: left; width: 100%; }
+    @media (max-width:768px) {
+      .card { padding:20px 16px 16px; border-radius:20px; }
+      .footer-note { text-align:left; width:100%; }
+      table { display:block; overflow-x:auto; }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
     <div class="logo">PRE-ORDER FORM</div>
-
     <div class="card">
       <div class="card-inner">
         <h1>
@@ -280,10 +281,9 @@
           <span class="badge">PRE-ORDER</span>
         </h1>
         <p class="subtitle">
-          本預購為少量製作，將依實際填寫數量排單製作。<br />
-          請確認尺寸與聯絡方式，送出後若需修改可私訊IG或LINE與我們聯繫。
+          先選擇款式與尺寸加入購物車，可一次預購多件。<br />
+          最後再填寫聯絡方式與取貨方式，一次送出訂單。
         </p>
-
         <div class="notice">
           <span>⚠️</span>
           <span>
@@ -291,61 +291,77 @@
           </span>
         </div>
 
-        <form action="#" method="post">
-          <!-- 基本資料 -->
-          <div class="field">
-            <label for="name">姓名<span class="required">*</span></label>
-            <input id="name" name="name" type="text" placeholder="請輸入真實姓名" required>
+        <!-- 整體訂單 form（購買人資訊 + 購物車資料） -->
+        <form id="orderForm" action="#" method="post">
+          <!-- ① 購買人資料 -->
+          <div class="section-title">
+            1. 購買人資料
+            <span>這部分只填一次</span>
           </div>
-
           <div class="inline-row">
             <div class="field">
-              <label for="contact">聯絡方式<span class="required">*</span></label>
-              <input id="contact" name="contact" type="text" placeholder="電話或 IG 帳號" required>
+              <label for="buyerName">姓名<span class="required">*</span></label>
+              <input id="buyerName" name="buyerName" type="text" placeholder="請輸入真實姓名" required>
+            </div>
+            <div class="field">
+              <label for="buyerContact">聯絡方式<span class="required">*</span></label>
+              <input id="buyerContact" name="buyerContact" type="text" placeholder="電話或 IG 帳號" required>
               <div class="helper">例：0900-000000 / @your_ig_name</div>
             </div>
-            <div class="field">
-              <label for="city">地區</label>
-              <input id="city" name="city" type="text" placeholder="例：台東初鹿 / 桃園中壢">
-            </div>
           </div>
-
-          <!-- 商品資訊 -->
-          <div class="field">
-            <label for="style">款式<span class="required">*</span></label>
-            <select id="style" name="style" required>
-              <option value="">請選擇款式</option>
-              <option value="tee-black">A. 黑色短T（主Logo）</option>
-              <option value="tee-white">B. 白色短T（主Logo）</option>
-              <option value="hoodie">C. 厚棉帽T</option>
-              <!-- 之後可自行新增 -->
-            </select>
-          </div>
-
           <div class="inline-row">
             <div class="field">
-              <label for="color">顏色</label>
-              <select id="color" name="color">
-                <option value="">請選擇顏色（如適用）</option>
-                <option value="black">黑</option>
-                <option value="white">白</option>
-                <option value="brown">咖啡</option>
-                <option value="green">深綠</option>
-              </select>
+              <label for="buyerRegion">地區</label>
+              <input id="buyerRegion" name="buyerRegion" type="text" placeholder="例：台東初鹿 / 桃園中壢">
             </div>
-
             <div class="field">
-              <label for="quantity">數量<span class="required">*</span></label>
-              <input id="quantity" name="quantity" type="number" min="1" value="1" required>
+              <label for="shipping">取貨方式<span class="required">*</span></label>
+              <select id="shipping" name="shipping" required>
+                <option value="">請選擇取貨方式</option>
+                <option value="store">超商取貨（7-11 / 全家）</option>
+                <option value="home">宅配（需加運費）</option>
+                <option value="face">活動現場 / 部落面交</option>
+              </select>
+              <div class="helper">選擇超商或宅配者，之後會再與您確認地址與運費。</div>
             </div>
           </div>
 
-          <!-- 尺寸選擇 -->
+          <!-- ② 單件商品資訊（加入購物車用） -->
+          <div class="section-title">
+            2. 選擇商品加入購物車
+            <span>可重複加入多件</span>
+          </div>
+          <div class="inline-row">
+            <div class="field">
+              <label for="style">款式<span class="required">*</span></label>
+              <select id="style">
+                <option value="">請選擇款式</option>
+                <option value="A. 黑色短T（主Logo）">A. 黑色短T（主Logo）</option>
+                <option value="B. 白色短T（主Logo）">B. 白色短T（主Logo）</option>
+                <option value="C. 厚棉帽T">C. 厚棉帽T</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="color">顏色</label>
+              <select id="color">
+                <option value="">請選擇顏色（如適用）</option>
+                <option value="黑">黑</option>
+                <option value="白">白</option>
+                <option value="咖啡">咖啡</option>
+                <option value="深綠">深綠</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="quantity">數量<span class="required">*</span></label>
+              <input id="quantity" type="number" min="1" value="1">
+            </div>
+          </div>
+
           <div class="field">
             <label>尺寸<span class="required">*</span></label>
             <div class="size-options">
               <div class="chip">
-                <input type="radio" id="size-xs" name="size" value="XS" required>
+                <input type="radio" id="size-xs" name="size" value="XS">
                 <label for="size-xs">XS</label>
               </div>
               <div class="chip">
@@ -372,35 +388,214 @@
             <div class="helper">若不確定尺寸，建議以平量衣服比較，或私訊詢問。</div>
           </div>
 
-          <!-- 寄送/取貨 -->
-          <div class="field">
-            <label for="shipping">取貨方式<span class="required">*</span></label>
-            <select id="shipping" name="shipping" required>
-              <option value="">請選擇取貨方式</option>
-              <option value="store">超商取貨（7-11 / 全家）</option>
-              <option value="home">宅配（需加運費）</option>
-              <option value="face">活動現場/部落面交</option>
-            </select>
-            <div class="helper">選擇超商或宅配者，之後會再與您確認地址與運費。</div>
+          <div class="inline-row" style="align-items:flex-end;">
+            <div class="field" style="flex:1 1 100%;">
+              <label for="itemNote">此件備註</label>
+              <textarea id="itemNote" rows="2" placeholder="例如：送人、和朋友一起寄、特殊需求…"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" id="addToCartBtn">
+              加入購物車
+            </button>
+          </div>
+          <div id="itemError" class="error">請確認款式、尺寸與數量皆已填寫。</div>
+
+          <!-- ③ 購物車列表 -->
+          <div class="section-title">
+            3. 購物車
+            <span>確認所有預購品項</span>
+          </div>
+          <div class="cart">
+            <div id="cartEmpty" class="cart-empty">
+              目前還沒有加入任何商品，請先在上方選擇款式與尺寸後點「加入購物車」。
+            </div>
+            <div id="cartTableWrapper" style="display:none;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>款式 / 顏色</th>
+                    <th>尺寸</th>
+                    <th>數量</th>
+                    <th>備註</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="cartBody"></tbody>
+              </table>
+              <div class="cart-summary" id="cartSummary">共 0 件</div>
+            </div>
           </div>
 
-          <!-- 備註 -->
+          <!-- 隱藏欄位：存放購物車資料（要送給後端 / Google 表單可用） -->
+          <input type="hidden" name="cartData" id="cartData">
+
+          <!-- ④ 最後確認與送出 -->
+          <div class="section-title">
+            4. 確認並送出訂單
+          </div>
           <div class="field">
-            <label for="note">備註</label>
-            <textarea id="note" name="note" rows="3" placeholder="想說的話、特別需求（例如：要與誰一起寄、是否作為禮物包裝等）"></textarea>
+            <label for="orderNote">給主理人的話 / 其他備註</label>
+            <textarea id="orderNote" name="orderNote" rows="3"
+              placeholder="例如：希望同一箱寄出、發票需求、或其他想說的話。"></textarea>
+          </div>
+
+          <div id="formError" class="error">
+            送出前請確認：購物車內至少有一件商品，且姓名、聯絡方式與取貨方式已填寫。
           </div>
 
           <div class="footer">
-            <button class="submit-btn" type="submit">
-              送出預購
+            <button class="btn btn-primary" type="submit">
+              送出整張預購單
+            </button>
+            <button class="btn btn-ghost" type="button" id="clearCartBtn">
+              清空購物車
             </button>
             <div class="footer-note">
-              送出表單後請保留畫面截圖，<br />以利日後對單使用。
+              送出後建議截圖留存，<br />以利日後對單使用。
             </div>
           </div>
         </form>
       </div>
     </div>
   </div>
+
+  <script>
+    const cart = [];
+    const addBtn = document.getElementById('addToCartBtn');
+    const clearBtn = document.getElementById('clearCartBtn');
+    const cartBody = document.getElementById('cartBody');
+    const cartEmpty = document.getElementById('cartEmpty');
+    const cartTableWrapper = document.getElementById('cartTableWrapper');
+    const cartSummary = document.getElementById('cartSummary');
+    const cartDataInput = document.getElementById('cartData');
+    const itemError = document.getElementById('itemError');
+    const formError = document.getElementById('formError');
+    const orderForm = document.getElementById('orderForm');
+
+    function getSelectedSize() {
+      const radios = document.querySelectorAll('input[name="size"]');
+      for (const r of radios) {
+        if (r.checked) return r.value;
+      }
+      return null;
+    }
+
+    function renderCart() {
+      if (cart.length === 0) {
+        cartEmpty.style.display = 'block';
+        cartTableWrapper.style.display = 'none';
+        cartDataInput.value = '';
+        cartSummary.textContent = '共 0 件';
+        return;
+      }
+      cartEmpty.style.display = 'none';
+      cartTableWrapper.style.display = 'block';
+      cartBody.innerHTML = '';
+
+      let totalQty = 0;
+
+      cart.forEach((item, idx) => {
+        const tr = document.createElement('tr');
+        totalQty += item.quantity;
+        tr.innerHTML = `
+          <td>${idx + 1}</td>
+          <td>${item.style}${item.color ? ' ｜ ' + item.color : ''}</td>
+          <td>${item.size}</td>
+          <td>${item.quantity}</td>
+          <td>${item.itemNote || ''}</td>
+          <td>
+            <button type="button" class="btn btn-danger" data-index="${idx}">移除</button>
+          </td>
+        `;
+        cartBody.appendChild(tr);
+      });
+
+      cartSummary.textContent = `共 ${totalQty} 件（${cart.length} 筆品項）`;
+      cartDataInput.value = JSON.stringify(cart, null, 2);
+    }
+
+    addBtn.addEventListener('click', () => {
+      itemError.style.display = 'none';
+
+      const style = document.getElementById('style').value.trim();
+      const color = document.getElementById('color').value.trim();
+      const quantityValue = document.getElementById('quantity').value;
+      const size = getSelectedSize();
+      const itemNote = document.getElementById('itemNote').value.trim();
+
+      const quantity = parseInt(quantityValue, 10);
+
+      if (!style || !size || !quantity || quantity <= 0) {
+        itemError.style.display = 'block';
+        return;
+      }
+
+      cart.push({
+        style,
+        color,
+        size,
+        quantity,
+        itemNote
+      });
+
+      renderCart();
+
+      // 清空單件輸入（數量可留 1，方便下一筆）
+      // 不清空款式時可以讓使用者快速加不同尺寸
+      document.getElementById('quantity').value = '1';
+      document.getElementById('itemNote').value = '';
+    });
+
+    clearBtn.addEventListener('click', () => {
+      if (cart.length === 0) return;
+      if (!confirm('確定要清空購物車嗎？')) return;
+      cart.length = 0;
+      renderCart();
+    });
+
+    cartBody.addEventListener('click', e => {
+      const btn = e.target;
+      if (btn.matches('button[data-index]')) {
+        const index = parseInt(btn.getAttribute('data-index'), 10);
+        cart.splice(index, 1);
+        renderCart();
+      }
+    });
+
+    orderForm.addEventListener('submit', e => {
+      formError.style.display = 'none';
+
+      const buyerName = document.getElementById('buyerName').value.trim();
+      const buyerContact = document.getElementById('buyerContact').value.trim();
+      const shipping = document.getElementById('shipping').value.trim();
+
+      if (!buyerName || !buyerContact || !shipping || cart.length === 0) {
+        e.preventDefault();
+        formError.style.display = 'block';
+        return;
+      }
+
+      // 這裡只是示範，如果你未接後端，可以先攔截不要真的送
+      e.preventDefault();
+
+      const orderNote = document.getElementById('orderNote').value.trim();
+      const buyerRegion = document.getElementById('buyerRegion').value.trim();
+
+      const payload = {
+        buyerName,
+        buyerContact,
+        buyerRegion,
+        shipping,
+        orderNote,
+        items: cart
+      };
+
+      console.log('預購資料：', payload);
+      alert('預購資料已整理好（看 console）。正式使用時可以把這份資料串接到後端或 Google 表單。');
+    });
+
+    renderCart();
+  </script>
 </body>
 </html>
+
