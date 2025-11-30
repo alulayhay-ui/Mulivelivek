@@ -482,6 +482,114 @@
         justify-content: flex-end;
       }
     }
+    /* ---------- 🛒 Side Cart ---------- */
+.sidecart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(2px);
+  display: none;
+  z-index: 20;
+}
+
+.sidecart {
+  position: fixed;
+  top: 0;
+  right: -340px;
+  width: 320px;
+  height: 100vh;
+  background: #ffffff;
+  border-left: 1px solid #e3ddcf;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+  transition: right 0.28s ease;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidecart.open {
+  right: 0;
+}
+
+.sidecart-overlay.show {
+  display: block;
+}
+
+.sidecart-header {
+  padding: 14px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid #e3ddcf;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidecart-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #7b6d5c;
+}
+
+.sidecart-content {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.sidecart-empty {
+  color: #7b6d5c;
+  font-size: 0.85rem;
+}
+
+.sidecart-item {
+  border-bottom: 1px solid #f0eae0;
+  padding: 10px 0;
+}
+
+.sidecart-item-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2f2415;
+}
+
+.sidecart-item-detail {
+  font-size: 0.8rem;
+  color: #7b6d5c;
+  margin: 4px 0;
+}
+
+.sidecart-remove {
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  color: #c43c3c;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.sidecart-footer {
+  padding: 12px;
+  border-top: 1px solid #e3ddcf;
+}
+
+.sidecart-checkout-btn {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #c58543;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sidecart-checkout-btn:hover {
+  background: #a56b34;
+}
   </style>
 </head>
 <body>
@@ -865,6 +973,100 @@
 });
 
     renderCart();
+    // 🔸 Elements
+const sideCart = document.getElementById("sideCart");
+const sideCartOverlay = document.getElementById("sideCartOverlay");
+const sideCartClose = document.getElementById("sideCartClose");
+const headerCartArea = document.querySelector(".header-cart-pill");
+const sideCartList = document.getElementById("sideCartList");
+const sideCartEmpty = document.querySelector(".sidecart-empty");
+const goCheckout = document.getElementById("goCheckout");
+
+// 🔸 開啟購物車
+function openSideCart() {
+  sideCart.classList.add("open");
+  sideCartOverlay.classList.add("show");
+  renderSideCart();
+}
+
+// 🔸 關閉購物車
+function closeSideCart() {
+  sideCart.classList.remove("open");
+  sideCartOverlay.classList.remove("show");
+}
+
+// 🔸 點擊購物車 icon 開啟
+headerCartArea.addEventListener("click", openSideCart);
+
+// 🔸 點 X 或背景關閉
+sideCartClose.addEventListener("click", closeSideCart);
+sideCartOverlay.addEventListener("click", closeSideCart);
+
+// ---------- 🛒 渲染側邊購物車 ----------
+function renderSideCart() {
+  sideCartList.innerHTML = "";
+
+  if (cart.length === 0) {
+    sideCartEmpty.style.display = "block";
+    return;
+  }
+
+  sideCartEmpty.style.display = "none";
+
+  cart.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.className = "sidecart-item";
+    div.innerHTML = `
+      <div class="sidecart-item-title">${item.style}</div>
+      <div class="sidecart-item-detail">
+        顏色：${item.color || "無"}｜尺寸：${item.size}｜數量：${item.quantity}
+      </div>
+      <button class="sidecart-remove" data-index="${index}">
+        移除
+      </button>
+    `;
+    sideCartList.appendChild(div);
+  });
+}
+
+// 🔸 側欄移除功能
+sideCartList.addEventListener("click", (e) => {
+  if (e.target.matches(".sidecart-remove")) {
+    const idx = e.target.getAttribute("data-index");
+    cart.splice(idx, 1);
+    renderCart();      // 更新主購物車
+    renderSideCart();  // 更新側欄
+  }
+});
+
+// 🔸 點「前往結帳」直接跳到 Panel 4（自行調整）
+goCheckout.addEventListener("click", () => {
+  closeSideCart();
+  window.scrollTo({
+    top: document.getElementById("orderNote").offsetTop - 60,
+    behavior: "smooth"
+  });
+});
   </script>
+  <!-- 🛒 側邊購物車 -->
+<div id="sideCartOverlay" class="sidecart-overlay"></div>
+
+<div id="sideCart" class="sidecart">
+  <div class="sidecart-header">
+    <span>購物車</span>
+    <button id="sideCartClose" class="sidecart-close">×</button>
+  </div>
+
+  <div id="sideCartContent" class="sidecart-content">
+    <p class="sidecart-empty">目前沒有任何商品。</p>
+    <div id="sideCartList"></div>
+  </div>
+
+  <div class="sidecart-footer">
+    <button id="goCheckout" class="sidecart-checkout-btn">
+      前往結帳
+    </button>
+  </div>
+</div>
 </body>
 </html>
