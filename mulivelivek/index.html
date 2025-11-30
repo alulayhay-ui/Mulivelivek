@@ -522,42 +522,72 @@
         justify-content: flex-end;
       }
     }
-  /* YouTube 影片大區塊（背景影片） */
-.video-section {
-  margin-top: 32px;
-  margin-bottom: 32px;
-  border-radius: 20px;
-  overflow: hidden;
-  background: #000;
-}
-
-/* 16:9 影片比例包裹 */
-.video-container {
+  /* --- 🎥 滿版背景影片 HERO 區 --------------------------------- */
+.full-video-hero {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 比例 */
+  height: 100vh;            /* 高度佔滿一個螢幕 */
+  overflow: hidden;
 }
 
-/* 背景影片：顯示但點不到 */
-.video-container iframe {
+/* 背景影片容器 */
+.full-video-hero .video-bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  border: 0;
-  pointer-events: none; /* ⬅⬅⬅ 這行讓影片無法被點擊 */
+  overflow: hidden;
 }
 
-/* 讓影片完全 cover 住區塊 */
-.video-container iframe {
-  position: absolute;
-  inset: 0;
+/* 影片 cover 全螢幕，且無法被點擊 */
+.full-video-hero .video-bg iframe {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  pointer-events: none;     /* 不可點擊，不會跳去 YouTube */
   border: 0;
 }
 
+/* 影片上方的文字內容 */
+.full-video-hero .hero-content {
+  position: relative;       /* 壓在影片上面 */
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
+.full-video-hero .hero-content h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.full-video-hero .hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #f6e9cd;
+  line-height: 1.6;
+}
+
+.full-video-hero .hero-btns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* 想讓影片暗一點、文字更清楚，加這段遮罩（可選） */
+.full-video-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1;
+}
   </style>
 </head>
 <body>
@@ -589,26 +619,26 @@
  <!-- 主內容 -->
 <main class="page" id="top">
 
-  <!-- 🔥 滿版背景影片 HERO 區（你要的新 hero） -->
-  <section class="full-video-hero">
-    <div class="video-bg">
-      <iframe
-        src="https://www.youtube.com/embed/CM7T1jdy_bw?autoplay=1&mute=1&loop=1&playlist=CM7T1jdy_bw&controls=0&showinfo=0&rel=0&modestbranding=1"
-        frameborder="0"
-        allow="autoplay"
-      ></iframe>
-    </div>
+<!-- 🔥 滿版背景影片 HERO 區 -->
+<section class="full-video-hero">
+  <div class="video-bg">
+    <iframe
+      src="https://www.youtube.com/embed/CM7T1jdy_bw?autoplay=1&mute=1&loop=1&playlist=CM7T1jdy_bw&controls=0&showinfo=0&rel=0&modestbranding=1"
+      frameborder="0"
+      allow="autoplay"
+    ></iframe>
+  </div>
 
-    <div class="hero-content">
-      <h1>Mulivelivek 初鹿部落</h1>
-      <p>從初鹿大地長出的設計，穿上今年的相聚。</p>
+  <div class="hero-content">
+    <h1>Mulivelivek 初鹿部落</h1>
+    <p>從初鹿大地長出的設計，穿上今年的相聚。</p>
 
-      <div class="hero-btns">
-        <a href="preorder.html" class="btn">立即預購</a>
-        <a href="shipping.html" class="btn-outline">我已匯款，要填送貨資訊</a>
-      </div>
+    <div class="hero-btns">
+      <a href="preorder.html" class="btn">立即預購</a>
+      <a href="shipping.html" class="btn-outline">我已匯款，要填送貨資訊</a>
     </div>
-  </section>
+  </div>
+</section>
     <section class="hero">
       <div class="hero-left">
         <div class="hero-tag">'inavayan</div>
