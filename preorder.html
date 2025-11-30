@@ -107,6 +107,7 @@
       border: 1px solid var(--border);
       background: var(--bg-soft);
       font-size: 0.8rem;
+      cursor: pointer;
     }
 
     .header-cart-count {
@@ -387,6 +388,7 @@
       border-color: rgba(196, 60, 60, 0.5);
       font-size: 0.78rem;
       padding: 4px 9px;
+      cursor: pointer;
     }
 
     .btn-danger:hover {
@@ -482,114 +484,115 @@
         justify-content: flex-end;
       }
     }
+
     /* ---------- 🛒 Side Cart ---------- */
-.sidecart-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(2px);
-  display: none;
-  z-index: 20;
-}
+    .sidecart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(2px);
+      display: none;
+      z-index: 20;
+    }
 
-.sidecart {
-  position: fixed;
-  top: 0;
-  right: -340px;
-  width: 320px;
-  height: 100vh;
-  background: #ffffff;
-  border-left: 1px solid #e3ddcf;
-  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-  transition: right 0.28s ease;
-  z-index: 30;
-  display: flex;
-  flex-direction: column;
-}
+    .sidecart {
+      position: fixed;
+      top: 0;
+      right: -340px;
+      width: 320px;
+      height: 100vh;
+      background: #ffffff;
+      border-left: 1px solid #e3ddcf;
+      box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+      transition: right 0.28s ease;
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+    }
 
-.sidecart.open {
-  right: 0;
-}
+    .sidecart.open {
+      right: 0;
+    }
 
-.sidecart-overlay.show {
-  display: block;
-}
+    .sidecart-overlay.show {
+      display: block;
+    }
 
-.sidecart-header {
-  padding: 14px 16px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-bottom: 1px solid #e3ddcf;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    .sidecart-header {
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-bottom: 1px solid #e3ddcf;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-.sidecart-close {
-  background: none;
-  border: none;
-  font-size: 1.4rem;
-  cursor: pointer;
-  color: #7b6d5c;
-}
+    .sidecart-close {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #7b6d5c;
+    }
 
-.sidecart-content {
-  padding: 16px;
-  overflow-y: auto;
-  flex: 1;
-}
+    .sidecart-content {
+      padding: 16px;
+      overflow-y: auto;
+      flex: 1;
+    }
 
-.sidecart-empty {
-  color: #7b6d5c;
-  font-size: 0.85rem;
-}
+    .sidecart-empty {
+      color: #7b6d5c;
+      font-size: 0.85rem;
+    }
 
-.sidecart-item {
-  border-bottom: 1px solid #f0eae0;
-  padding: 10px 0;
-}
+    .sidecart-item {
+      border-bottom: 1px solid #f0eae0;
+      padding: 10px 0;
+    }
 
-.sidecart-item-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #2f2415;
-}
+    .sidecart-item-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #2f2415;
+    }
 
-.sidecart-item-detail {
-  font-size: 0.8rem;
-  color: #7b6d5c;
-  margin: 4px 0;
-}
+    .sidecart-item-detail {
+      font-size: 0.8rem;
+      color: #7b6d5c;
+      margin: 4px 0;
+    }
 
-.sidecart-remove {
-  background: none;
-  border: none;
-  font-size: 0.8rem;
-  color: #c43c3c;
-  cursor: pointer;
-  padding: 4px 0;
-}
+    .sidecart-remove {
+      background: none;
+      border: none;
+      font-size: 0.8rem;
+      color: #c43c3c;
+      cursor: pointer;
+      padding: 4px 0;
+    }
 
-.sidecart-footer {
-  padding: 12px;
-  border-top: 1px solid #e3ddcf;
-}
+    .sidecart-footer {
+      padding: 12px;
+      border-top: 1px solid #e3ddcf;
+    }
 
-.sidecart-checkout-btn {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: none;
-  background: #c58543;
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-}
+    .sidecart-checkout-btn {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: none;
+      background: #c58543;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
-.sidecart-checkout-btn:hover {
-  background: #a56b34;
-}
+    .sidecart-checkout-btn:hover {
+      background: #a56b34;
+    }
   </style>
 </head>
 <body>
@@ -686,17 +689,26 @@
                 <div class="helper">選擇超商或宅配者，之後會再與您確認地址與運費。</div>
               </div>
             </div>
+
+            <!-- 付款方式 + 匯款後五碼 -->
+            <div class="field">
+              <label for="payment">付款方式<span class="required">*</span></label>
+              <select id="payment" name="payment" required>
+                <option value="">請選擇付款方式</option>
+                <option value="transfer">匯款（ATM / 網銀轉帳）</option>
+              </select>
+              <div class="helper">
+                完成匯款後請回報帳號末五碼，我們確認款項後會安排出貨。
+              </div>
+            </div>
+
+            <div class="field" id="transferCodeField" style="display:none;">
+              <label for="transferCode">匯款後五碼<span class="required">*</span></label>
+              <input id="transferCode" name="transferCode" type="text" maxlength="5" placeholder="請輸入匯款帳號後五碼">
+              <div class="helper">完成匯款後請回報帳號後五碼，我們確認款項後會安排出貨。</div>
+            </div>
           </div>
-<div class="field">
-  <label for="payment">付款方式<span class="required">*</span></label>
-  <select id="payment" name="payment" required>
-    <option value="">請選擇付款方式</option>
-    <option value="transfer">匯款（ATM / 網銀轉帳）</option>
-  </select>
-  <div class="helper">
-    完成匯款後請回報帳號末五碼，我們確認款項後會安排出貨。
-  </div>
-</div>
+
           <!-- 2. 單件商品加入購物車 -->
           <div class="panel">
             <h3 class="panel-title">
@@ -838,235 +850,258 @@
     </div>
   </main>
 
+  <!-- 🛒 側邊購物車 -->
+  <div id="sideCartOverlay" class="sidecart-overlay"></div>
+  <div id="sideCart" class="sidecart">
+    <div class="sidecart-header">
+      <span>購物車</span>
+      <button id="sideCartClose" class="sidecart-close">×</button>
+    </div>
+
+    <div id="sideCartContent" class="sidecart-content">
+      <p class="sidecart-empty">目前沒有任何商品。</p>
+      <div id="sideCartList"></div>
+    </div>
+
+    <div class="sidecart-footer">
+      <button id="goCheckout" class="sidecart-checkout-btn">
+        前往結帳
+      </button>
+    </div>
+  </div>
+
   <script>
-    const cart = [];
-    const addBtn = document.getElementById('addToCartBtn');
-    const clearBtn = document.getElementById('clearCartBtn');
-    const cartBody = document.getElementById('cartBody');
-    const cartEmpty = document.getElementById('cartEmpty');
-    const cartTableWrapper = document.getElementById('cartTableWrapper');
-    const cartSummary = document.getElementById('cartSummary');
-    const cartDataInput = document.getElementById('cartData');
-    const itemError = document.getElementById('itemError');
-    const formError = document.getElementById('formError');
-    const orderForm = document.getElementById('orderForm');
-    const headerCartCount = document.getElementById('headerCartCount');
+    window.addEventListener('DOMContentLoaded', () => {
+      const cart = [];
+      const addBtn = document.getElementById('addToCartBtn');
+      const clearBtn = document.getElementById('clearCartBtn');
+      const cartBody = document.getElementById('cartBody');
+      const cartEmpty = document.getElementById('cartEmpty');
+      const cartTableWrapper = document.getElementById('cartTableWrapper');
+      const cartSummary = document.getElementById('cartSummary');
+      const cartDataInput = document.getElementById('cartData');
+      const itemError = document.getElementById('itemError');
+      const formError = document.getElementById('formError');
+      const orderForm = document.getElementById('orderForm');
+      const headerCartCount = document.getElementById('headerCartCount');
 
-    function getSelectedSize() {
-      const radios = document.querySelectorAll('input[name="size"]');
-      for (const r of radios) {
-        if (r.checked) return r.value;
+      const paymentSelect = document.getElementById('payment');
+      const transferCodeField = document.getElementById('transferCodeField');
+      const transferCodeInput = document.getElementById('transferCode');
+
+      function getSelectedSize() {
+        const radios = document.querySelectorAll('input[name="size"]');
+        for (const r of radios) {
+          if (r.checked) return r.value;
+        }
+        return null;
       }
-      return null;
-    }
 
-    function updateHeaderCartCount(totalQty) {
-      headerCartCount.textContent = totalQty;
-    }
+      function updateHeaderCartCount(totalQty) {
+        headerCartCount.textContent = totalQty;
+      }
 
-    function renderCart() {
-      if (cart.length === 0) {
-        cartEmpty.style.display = 'block';
-        cartTableWrapper.style.display = 'none';
+      function renderCart() {
+        if (cart.length === 0) {
+          cartEmpty.style.display = 'block';
+          cartTableWrapper.style.display = 'none';
+          cartBody.innerHTML = '';
+          cartSummary.textContent = '共 0 件';
+          cartDataInput.value = '';
+          updateHeaderCartCount(0);
+          return;
+        }
+
+        cartEmpty.style.display = 'none';
+        cartTableWrapper.style.display = 'block';
         cartBody.innerHTML = '';
-        cartSummary.textContent = '共 0 件';
-        cartDataInput.value = '';
-        updateHeaderCartCount(0);
-        return;
+
+        let totalQty = 0;
+        cart.forEach((item, idx) => {
+          totalQty += item.quantity;
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${idx + 1}</td>
+            <td>${item.style}${item.color ? ' ｜ ' + item.color : ''}</td>
+            <td>${item.size}</td>
+            <td>${item.quantity}</td>
+            <td>${item.itemNote || ''}</td>
+            <td>
+              <button type="button" class="btn-danger" data-index="${idx}">移除</button>
+            </td>
+          `;
+          cartBody.appendChild(tr);
+        });
+
+        cartSummary.textContent = `共 ${totalQty} 件（${cart.length} 筆品項）`;
+        cartDataInput.value = JSON.stringify(cart, null, 2);
+        updateHeaderCartCount(totalQty);
       }
 
-      cartEmpty.style.display = 'none';
-      cartTableWrapper.style.display = 'block';
-      cartBody.innerHTML = '';
+      addBtn.addEventListener('click', () => {
+        itemError.style.display = 'none';
 
-      let totalQty = 0;
-      cart.forEach((item, idx) => {
-        totalQty += item.quantity;
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${idx + 1}</td>
-          <td>${item.style}${item.color ? ' ｜ ' + item.color : ''}</td>
-          <td>${item.size}</td>
-          <td>${item.quantity}</td>
-          <td>${item.itemNote || ''}</td>
-          <td>
-            <button type="button" class="btn-danger" data-index="${idx}">移除</button>
-          </td>
-        `;
-        cartBody.appendChild(tr);
+        const style = document.getElementById('style').value.trim();
+        const color = document.getElementById('color').value.trim();
+        const quantityValue = document.getElementById('quantity').value;
+        const size = getSelectedSize();
+        const itemNote = document.getElementById('itemNote').value.trim();
+        const quantity = parseInt(quantityValue, 10);
+
+        if (!style || !size || !quantity || quantity <= 0) {
+          itemError.style.display = 'block';
+          return;
+        }
+
+        cart.push({ style, color, size, quantity, itemNote });
+        renderCart();
+
+        document.getElementById('quantity').value = '1';
+        document.getElementById('itemNote').value = '';
       });
 
-      cartSummary.textContent = `共 ${totalQty} 件（${cart.length} 筆品項）`;
-      cartDataInput.value = JSON.stringify(cart, null, 2);
-      updateHeaderCartCount(totalQty);
-    }
-
-    addBtn.addEventListener('click', () => {
-      itemError.style.display = 'none';
-
-      const style = document.getElementById('style').value.trim();
-      const color = document.getElementById('color').value.trim();
-      const quantityValue = document.getElementById('quantity').value;
-      const size = getSelectedSize();
-      const itemNote = document.getElementById('itemNote').value.trim();
-      const quantity = parseInt(quantityValue, 10);
-
-      if (!style || !size || !quantity || quantity <= 0) {
-        itemError.style.display = 'block';
-        return;
-      }
-
-      cart.push({ style, color, size, quantity, itemNote });
-      renderCart();
-
-      document.getElementById('quantity').value = '1';
-      document.getElementById('itemNote').value = '';
-    });
-
-    clearBtn.addEventListener('click', () => {
-      if (cart.length === 0) return;
-      if (!confirm('確定要清空購物車嗎？')) return;
-      cart.length = 0;
-      renderCart();
-    });
-
-    cartBody.addEventListener('click', e => {
-      const btn = e.target;
-      if (btn.matches('button[data-index]')) {
-        const index = parseInt(btn.getAttribute('data-index'), 10);
-        cart.splice(index, 1);
+      clearBtn.addEventListener('click', () => {
+        if (cart.length === 0) return;
+        if (!confirm('確定要清空購物車嗎？')) return;
+        cart.length = 0;
         renderCart();
+      });
+
+      cartBody.addEventListener('click', e => {
+        const btn = e.target;
+        if (btn.matches('button[data-index]')) {
+          const index = parseInt(btn.getAttribute('data-index'), 10);
+          cart.splice(index, 1);
+          renderCart();
+        }
+      });
+
+      // 付款方式 → 顯示 / 隱藏匯款後五碼
+      paymentSelect.addEventListener('change', () => {
+        if (paymentSelect.value === 'transfer') {
+          transferCodeField.style.display = 'block';
+        } else {
+          transferCodeField.style.display = 'none';
+          transferCodeInput.value = '';
+        }
+      });
+
+      orderForm.addEventListener('submit', e => {
+        formError.style.display = 'none';
+        formError.textContent = '送出前請確認：購物車內至少有一件商品，且姓名、聯絡方式與取貨方式已填寫。';
+
+        const buyerName = document.getElementById('buyerName').value.trim();
+        const buyerContact = document.getElementById('buyerContact').value.trim();
+        const shipping = document.getElementById('shipping').value.trim();
+        const payment = paymentSelect.value.trim();
+
+        if (!buyerName || !buyerContact || !shipping || !payment || cart.length === 0) {
+          e.preventDefault();
+          formError.style.display = 'block';
+          return;
+        }
+
+        if (payment === 'transfer') {
+          const code = transferCodeInput.value.trim();
+          const isFiveDigits = /^[0-9]{5}$/.test(code);
+          if (!isFiveDigits) {
+            e.preventDefault();
+            formError.style.display = 'block';
+            formError.textContent = '請填寫匯款後五碼（5 位數字）。';
+            return;
+          }
+        }
+
+        e.preventDefault(); // 示範用；要接後端時移除
+
+        const buyerRegion = document.getElementById('buyerRegion').value.trim();
+        const orderNote = document.getElementById('orderNote').value.trim();
+        const transferCode = transferCodeInput.value.trim();
+
+        const payload = {
+          buyerName,
+          buyerContact,
+          buyerRegion,
+          shipping,
+          payment,
+          transferCode,
+          orderNote,
+          items: cart
+        };
+
+        console.log('預購資料：', payload);
+        alert('預購資料已整理好（已顯示於 console）。正式使用時可將這份資料串接到後端或 Google 表單。');
+      });
+
+      // ---------- Side Cart ----------
+      const sideCart = document.getElementById("sideCart");
+      const sideCartOverlay = document.getElementById("sideCartOverlay");
+      const sideCartClose = document.getElementById("sideCartClose");
+      const headerCartArea = document.querySelector(".header-cart-pill");
+      const sideCartList = document.getElementById("sideCartList");
+      const sideCartEmpty = document.querySelector(".sidecart-empty");
+      const goCheckout = document.getElementById("goCheckout");
+
+      function openSideCart() {
+        sideCart.classList.add("open");
+        sideCartOverlay.classList.add("show");
+        renderSideCart();
       }
+
+      function closeSideCart() {
+        sideCart.classList.remove("open");
+        sideCartOverlay.classList.remove("show");
+      }
+
+      headerCartArea.addEventListener("click", openSideCart);
+      sideCartClose.addEventListener("click", closeSideCart);
+      sideCartOverlay.addEventListener("click", closeSideCart);
+
+      function renderSideCart() {
+        sideCartList.innerHTML = "";
+
+        if (cart.length === 0) {
+          sideCartEmpty.style.display = "block";
+          return;
+        }
+
+        sideCartEmpty.style.display = "none";
+
+        cart.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.className = "sidecart-item";
+          div.innerHTML = `
+            <div class="sidecart-item-title">${item.style}</div>
+            <div class="sidecart-item-detail">
+              顏色：${item.color || "無"}｜尺寸：${item.size}｜數量：${item.quantity}
+            </div>
+            <button class="sidecart-remove" data-index="${index}">
+              移除
+            </button>
+          `;
+          sideCartList.appendChild(div);
+        });
+      }
+
+      sideCartList.addEventListener("click", (e) => {
+        if (e.target.matches(".sidecart-remove")) {
+          const idx = e.target.getAttribute("data-index");
+          cart.splice(idx, 1);
+          renderCart();
+          renderSideCart();
+        }
+      });
+
+      goCheckout.addEventListener("click", () => {
+        closeSideCart();
+        window.scrollTo({
+          top: document.getElementById("orderNote").offsetTop - 60,
+          behavior: "smooth"
+        });
+      });
+
+      renderCart();
     });
-
-    orderForm.addEventListener('submit', e => {
-  formError.style.display = 'none';
-
-  const buyerName = document.getElementById('buyerName').value.trim();
-  const buyerContact = document.getElementById('buyerContact').value.trim();
-  const shipping = document.getElementById('shipping').value.trim();
-  const payment = document.getElementById('payment').value.trim(); // 新增
-
-  if (!buyerName || !buyerContact || !shipping || !payment || cart.length === 0) {
-    e.preventDefault();
-    formError.style.display = 'block';
-    return;
-  }
-
-  e.preventDefault(); // 示範用，正式接後端時可移除
-
-  const buyerRegion = document.getElementById('buyerRegion').value.trim();
-  const orderNote = document.getElementById('orderNote').value.trim();
-
-  const payload = {
-    buyerName,
-    buyerContact,
-    buyerRegion,
-    shipping,
-    payment,   // 新增
-    orderNote,
-    items: cart
-  };
-
-  console.log('預購資料：', payload);
-  alert('預購資料已整理好（已顯示於 console）。正式使用時可將這份資料串接到後端或 Google 表單。');
-});
-
-    renderCart();
-    // 🔸 Elements
-const sideCart = document.getElementById("sideCart");
-const sideCartOverlay = document.getElementById("sideCartOverlay");
-const sideCartClose = document.getElementById("sideCartClose");
-const headerCartArea = document.querySelector(".header-cart-pill");
-const sideCartList = document.getElementById("sideCartList");
-const sideCartEmpty = document.querySelector(".sidecart-empty");
-const goCheckout = document.getElementById("goCheckout");
-
-// 🔸 開啟購物車
-function openSideCart() {
-  sideCart.classList.add("open");
-  sideCartOverlay.classList.add("show");
-  renderSideCart();
-}
-
-// 🔸 關閉購物車
-function closeSideCart() {
-  sideCart.classList.remove("open");
-  sideCartOverlay.classList.remove("show");
-}
-
-// 🔸 點擊購物車 icon 開啟
-headerCartArea.addEventListener("click", openSideCart);
-
-// 🔸 點 X 或背景關閉
-sideCartClose.addEventListener("click", closeSideCart);
-sideCartOverlay.addEventListener("click", closeSideCart);
-
-// ---------- 🛒 渲染側邊購物車 ----------
-function renderSideCart() {
-  sideCartList.innerHTML = "";
-
-  if (cart.length === 0) {
-    sideCartEmpty.style.display = "block";
-    return;
-  }
-
-  sideCartEmpty.style.display = "none";
-
-  cart.forEach((item, index) => {
-    const div = document.createElement("div");
-    div.className = "sidecart-item";
-    div.innerHTML = `
-      <div class="sidecart-item-title">${item.style}</div>
-      <div class="sidecart-item-detail">
-        顏色：${item.color || "無"}｜尺寸：${item.size}｜數量：${item.quantity}
-      </div>
-      <button class="sidecart-remove" data-index="${index}">
-        移除
-      </button>
-    `;
-    sideCartList.appendChild(div);
-  });
-}
-
-// 🔸 側欄移除功能
-sideCartList.addEventListener("click", (e) => {
-  if (e.target.matches(".sidecart-remove")) {
-    const idx = e.target.getAttribute("data-index");
-    cart.splice(idx, 1);
-    renderCart();      // 更新主購物車
-    renderSideCart();  // 更新側欄
-  }
-});
-
-// 🔸 點「前往結帳」直接跳到 Panel 4（自行調整）
-goCheckout.addEventListener("click", () => {
-  closeSideCart();
-  window.scrollTo({
-    top: document.getElementById("orderNote").offsetTop - 60,
-    behavior: "smooth"
-  });
-});
   </script>
-  <!-- 🛒 側邊購物車 -->
-<div id="sideCartOverlay" class="sidecart-overlay"></div>
-
-<div id="sideCart" class="sidecart">
-  <div class="sidecart-header">
-    <span>購物車</span>
-    <button id="sideCartClose" class="sidecart-close">×</button>
-  </div>
-
-  <div id="sideCartContent" class="sidecart-content">
-    <p class="sidecart-empty">目前沒有任何商品。</p>
-    <div id="sideCartList"></div>
-  </div>
-
-  <div class="sidecart-footer">
-    <button id="goCheckout" class="sidecart-checkout-btn">
-      前往結帳
-    </button>
-  </div>
-</div>
 </body>
 </html>
