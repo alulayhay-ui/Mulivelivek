@@ -740,12 +740,13 @@
     miniCartClose.addEventListener('click', closeMiniCart);
     continueBtn.addEventListener('click', closeMiniCart);
 
-    function goPreorder() {
-      window.location.href = 'preorder.html';
-    }
-    viewCartBtn.addEventListener('click', goPreorder);
-    checkoutBtn.addEventListener('click', goPreorder);
+    function goCart() {
+  window.location.href = 'cart.html';
+}
 
+viewCartBtn.addEventListener('click', goCart);
+checkoutBtn.addEventListener('click', goCart);
+    
     updateHeaderCartCount();
      // ----- 尺寸按鈕視覺切換 -----
     const sizeLabels = document.querySelectorAll('.size-label');
