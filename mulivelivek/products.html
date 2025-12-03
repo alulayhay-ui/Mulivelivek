@@ -302,7 +302,12 @@
       color: #fff;
       border-color: #000;
     }
-
+    /* 讓 JS 也可以控制選到的尺寸外觀 */
+    .size-label.active {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
     /* 顏色：目前只有一種，純文字顯示 */
     .color-pill {
       display: inline-flex;
@@ -742,6 +747,27 @@
     checkoutBtn.addEventListener('click', goPreorder);
 
     updateHeaderCartCount();
+     // ----- 尺寸按鈕視覺切換 -----
+    const sizeLabels = document.querySelectorAll('.size-label');
+
+    sizeLabels.forEach(label => {
+      label.addEventListener('click', () => {
+        // 先把全部尺寸按鈕的 active 拿掉
+        sizeLabels.forEach(l => l.classList.remove('active'));
+        // 再把點到的那一顆設為 active
+        label.classList.add('active');
+      });
+    });
+
+    // 一開始預設 M 那顆有 active
+    const defaultLabel = document.querySelector('#size-m + .size-label');
+    if (defaultLabel) defaultLabel.classList.add('active');
+
+    // 重新定義 getSelectedSize，改用 active 的那顆尺寸
+    function getSelectedSize() {
+      const active = document.querySelector('.size-label.active');
+      return active ? active.textContent.trim() : 'M';
+    }
   </script>
 </body>
 </html>
