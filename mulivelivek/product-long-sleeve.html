@@ -269,50 +269,33 @@
       color: var(--muted);
     }
 
-    /* 尺寸按鈕 */
-    .size-row {
+    /* 尺寸／顏色按鈕 */
+    .size-row,
+    .color-row {
       margin-top: 4px;
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
-    .size-chip {
-      position: relative;
-    }
-    .size-chip input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .size-chip label {
-      border-radius: 8px;
+
+    .size-btn,
+    .color-btn {
+      min-width: 44px;
       padding: 8px 14px;
+      border-radius: 8px;
       border: 1px solid var(--border);
       font-size: 0.85rem;
-      min-width: 44px;
-      text-align: center;
       cursor: pointer;
       background: #fffdf9;
       color: var(--text);
       transition: all 0.12s ease;
     }
-    .size-chip input:checked + label {
-      background: #111;
-      color: #fff;
-      border-color: #111;
-    }
 
-    /* 顏色 */
-    .color-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: #fffdf9;
-      font-size: 0.82rem;
-      margin-top: 4px;
+    .size-btn.active,
+    .color-btn.active {
+      background: #000;
+      color: #fff;
+      border-color: #000;
     }
 
     /* 數量 */
@@ -540,34 +523,24 @@
         <!-- 尺寸 -->
         <div>
           <div class="field-label">大小</div>
-          <div class="size-row">
-            <div class="size-chip">
-              <input type="radio" id="size-m" name="size" value="M" checked>
-              <label for="size-m">M</label>
-            </div>
-            <div class="size-chip">
-              <input type="radio" id="size-l" name="size" value="L">
-              <label for="size-l">L</label>
-            </div>
-            <div class="size-chip">
-              <input type="radio" id="size-xl" name="size" value="XL">
-              <label for="size-xl">XL</label>
-            </div>
-            <div class="size-chip">
-              <input type="radio" id="size-2xl" name="size" value="2XL">
-              <label for="size-2xl">2XL</label>
-            </div>
-            <div class="size-chip">
-              <input type="radio" id="size-3xl" name="size" value="3XL">
-              <label for="size-3xl">3XL</label>
-            </div>
+          <div class="size-row" id="sizeRow">
+            <button type="button" class="size-btn active" data-size="M">M</button>
+            <button type="button" class="size-btn" data-size="L">L</button>
+            <button type="button" class="size-btn" data-size="XL">XL</button>
+            <button type="button" class="size-btn" data-size="2XL">2XL</button>
+            <button type="button" class="size-btn" data-size="3XL">3XL</button>
           </div>
         </div>
 
         <!-- 顏色 -->
         <div>
           <div class="field-label">顏色</div>
-          <div class="color-pill">淺灰水洗 × 粉色字體</div>
+          <div class="color-row" id="colorRow">
+            <button type="button" class="color-btn active" data-color="淺灰水洗 × 粉色字體">
+              淺灰水洗 × 粉色字體
+            </button>
+            <!-- 之後如果有別的顏色，再加一顆 button 就好 -->
+          </div>
         </div>
 
         <!-- 數量 -->
@@ -614,137 +587,4 @@
         <li>水洗布料第一次下水會有些微掉色屬正常現象，建議前幾次單獨洗滌。</li>
       </ul>
     </section>
-  </main>
-
-  <!-- 迷你購物車彈出視窗 -->
-  <div class="mini-cart-overlay" id="miniCartOverlay">
-    <div class="mini-cart-panel">
-      <div class="mini-cart-header">
-        <div class="mini-cart-title">已加入購物車</div>
-        <button class="mini-cart-close" id="miniCartClose">×</button>
-      </div>
-
-      <div class="mini-cart-item">
-        <div class="mini-cart-thumb"></div>
-        <div class="mini-cart-text">
-          <strong>初鹿部落年祭限定水洗長袖｜MULIVELIVEK 限定款</strong>
-          <span id="miniCartVariant">M, 淺灰水洗 × 粉色字體</span>
-        </div>
-      </div>
-
-      <button class="mini-cart-btn secondary" id="viewCartBtn">
-        查看購物車 (<span id="miniCartCount">1</span>)
-      </button>
-      <button class="mini-cart-btn" id="checkoutBtn">結帳</button>
-      <button class="mini-cart-btn text" id="continueBtn">繼續購物</button>
-    </div>
-  </div>
-
-  <script>
-    // --------- 共用：localStorage 簡易購物車 ---------
-    const CART_KEY = 'mulivelivekCart';
-
-    function loadCart() {
-      try {
-        const raw = localStorage.getItem(CART_KEY);
-        if (!raw) return [];
-        const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) ? parsed : [];
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveCart(cart) {
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    }
-
-    function getCartTotalQty(cart) {
-      return cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
-    }
-
-    function updateHeaderCartCount() {
-      const headerCount = document.getElementById('headerCartCount');
-      const cart = loadCart();
-      headerCount.textContent = getCartTotalQty(cart);
-    }
-
-    // --------- 數量 + / - ----------
-    const qtyDisplay = document.getElementById('qtyDisplay');
-    const minusBtn = document.getElementById('qtyMinus');
-    const plusBtn = document.getElementById('qtyPlus');
-    let qty = 1;
-
-    minusBtn.addEventListener('click', () => {
-      if (qty > 1) {
-        qty--;
-        qtyDisplay.textContent = qty;
-      }
-    });
-
-    plusBtn.addEventListener('click', () => {
-      qty++;
-      qtyDisplay.textContent = qty;
-    });
-
-    // --------- 加入購物車 ＋ 顯示 mini-cart ----------
-    const addToCartButton = document.getElementById('addToCartButton');
-    const miniCartOverlay = document.getElementById('miniCartOverlay');
-    const miniCartClose = document.getElementById('miniCartClose');
-    const miniCartVariant = document.getElementById('miniCartVariant');
-    const miniCartCount = document.getElementById('miniCartCount');
-    const viewCartBtn = document.getElementById('viewCartBtn');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    const continueBtn = document.getElementById('continueBtn');
-
-    function getSelectedSize() {
-      const radios = document.querySelectorAll('input[name="size"]');
-      for (const r of radios) {
-        if (r.checked) return r.value;
-      }
-      return 'M';
-    }
-
-    function openMiniCart(totalQty, size) {
-      miniCartVariant.textContent = `${size}, 淺灰水洗 × 粉色字體`;
-      miniCartCount.textContent = totalQty;
-      miniCartOverlay.style.display = 'flex';
-    }
-
-    function closeMiniCart() {
-      miniCartOverlay.style.display = 'none';
-    }
-
-    addToCartButton.addEventListener('click', () => {
-      const size = getSelectedSize();
-      const quantity = qty;
-
-      const cart = loadCart();
-      cart.push({
-        style: '初鹿部落年祭限定水洗長袖｜MULIVELIVEK 限定款',
-        color: '淺灰水洗 × 粉色字體',
-        size,
-        quantity
-      });
-      saveCart(cart);
-
-      const totalQty = getCartTotalQty(cart);
-      updateHeaderCartCount();
-      openMiniCart(totalQty, size);
-    });
-
-    miniCartClose.addEventListener('click', closeMiniCart);
-    continueBtn.addEventListener('click', closeMiniCart);
-
-    // 查看購物車 / 結帳 都去預購頁
-    function goPreorder() {
-      window.location.href = 'preorder.html';
-    }
-    viewCartBtn.addEventListener('click', goPreorder);
-    checkoutBtn.addEventListener('click', goPreorder);
-
-    // 一進頁面先更新右上角數量
-    updateHeaderCartCount();
-  </script>
-</body>
-</html>
+  </main
