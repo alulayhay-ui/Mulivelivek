@@ -2,195 +2,58 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>匯款完成｜填寫送貨資訊</title>
+  <title>填寫送貨資訊｜Mulivelivek</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    :root {
-      --bg:#f7f3ec;
-      --card:#ffffff;
-      --border:#e3ddcf;
-      --accent:#c58543;
-      --accent-dark:#92572a;
-      --text:#2f2415;
-      --muted:#7b6d5c;
-      --danger:#c43c3c;
-    }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-    }
-    .card{
-      max-width:480px;
-      width:100%;
-      background:var(--card);
-      border-radius:16px;
-      border:1px solid var(--border);
-      padding:20px 18px 18px;
-      box-shadow:0 12px 30px rgba(0,0,0,.08);
-    }
-    h1{margin:0 0 6px;font-size:1.4rem;}
-    p{margin:0 0 14px;font-size:0.88rem;color:var(--muted);}
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      font-size:0.9rem;
-      margin-bottom:10px;
-    }
-    label{font-weight:500;}
-    .required{color:var(--danger);margin-left:2px;}
-    input,select,textarea{
-      padding:8px 10px;
-      border-radius:8px;
-      border:1px solid var(--border);
-      background:#fffdf9;
-      font:inherit;
-      outline:none;
-    }
-    input:focus,select:focus,textarea:focus{
-      border-color:var(--accent);
-      box-shadow:0 0 0 1px rgba(197,133,67,.25);
-      background:#fff;
-    }
-    .helper{font-size:0.75rem;color:var(--muted);}
-    .btn{
-      width:100%;
-      border-radius:999px;
-      padding:10px 16px;
-      border:1px solid var(--accent);
-      background:var(--accent);
-      color:#fff;
-      font-size:0.95rem;
-      font-weight:600;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      cursor:pointer;
-      margin-top:4px;
-    }
-    .btn:hover{
-      background:var(--accent-dark);
-      border-color:var(--accent-dark);
-    }
-    .error{
-      color:var(--danger);
-      font-size:0.78rem;
-      margin-top:4px;
-      display:none;
-    }
-    .back-link{
-      margin-top:8px;
-      font-size:0.8rem;
-      color:var(--muted);
-      text-align:center;
-    }
-    .back-link a{color:var(--accent-dark);}
+    :root { --bg:#f7f3ec; --card:#ffffff; --border:#e3ddcf; --accent:#c58543; --text:#2f2415; --muted:#7b6d5c; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; font-family:system-ui, sans-serif; background:var(--bg); color:var(--text); display:flex; align-items:center; justify-content:center; padding:20px; }
+    
+    .card { max-width:500px; width:100%; background:var(--card); border-radius:16px; border:1px solid var(--border); padding:24px; box-shadow:0 10px 30px rgba(0,0,0,0.05); }
+    h1 { margin-top:0; font-size:1.4rem; text-align:center; }
+    .field { margin-bottom:12px; }
+    label { display:block; margin-bottom:4px; font-weight:600; font-size:0.9rem; }
+    input, select, textarea { width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); background:#fffdf9; font-size:1rem; }
+    .btn { width:100%; padding:12px; border-radius:99px; background:var(--accent); color:#fff; border:none; font-size:1rem; font-weight:600; cursor:pointer; margin-top:10px; }
+    .btn:hover { background:#a66b30; }
+    .back-link { display:block; text-align:center; margin-top:12px; font-size:0.9rem; color:var(--muted); text-decoration:underline; }
   </style>
 </head>
 <body>
   <form class="card" id="shippingForm">
-    <h1>匯款完成｜填寫送貨資訊</h1>
-    <p>
-      請先完成匯款，再填寫以下資料。我們會以「購買人姓名＋電話」對照預購名單，確認無誤後再建立 7-11 賣貨便寄件。
-    </p>
+    <h1>運送資訊</h1>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:20px;">請填寫收件資料，我們將盡快為您出貨。</p>
 
     <div class="field">
-      <label for="buyerName">購買人姓名<span class="required">*</span></label>
-      <input id="buyerName" type="text" placeholder="請輸入預購時填寫的姓名" required>
+      <label>收件人姓名</label>
+      <input type="text" required placeholder="請輸入真實姓名">
     </div>
-
     <div class="field">
-      <label for="buyerPhone">聯絡電話<span class="required">*</span></label>
-      <input id="buyerPhone" type="tel" placeholder="請輸入預購時填寫的電話" required>
+      <label>聯絡電話</label>
+      <input type="tel" required placeholder="09xx-xxx-xxx">
     </div>
-
     <div class="field">
-      <label for="transferCode">匯款後五碼<span class="required">*</span></label>
-      <input id="transferCode" type="text" maxlength="5" placeholder="請輸入匯款帳號後五碼" required>
-      <div class="helper">我們會依照此後五碼對帳。</div>
-    </div>
-
-    <div class="field">
-      <label for="shippingType">取貨方式<span class="required">*</span></label>
-      <select id="shippingType" required>
-        <option value="">請選擇取貨方式</option>
-        <option value="711">7-11 超商取貨</option>
-        <option value="face">活動現場 / 部落面交</option>
+      <label>取貨方式</label>
+      <select>
+        <option>7-11 店到店</option>
+        <option>部落自取</option>
       </select>
     </div>
-
-    <div class="field" id="storeField">
-      <label for="storeInfo">超商門市資訊（店名 / 店號）</label>
-      <textarea id="storeInfo" rows="2" placeholder="例：初鹿門市（店號 123456）"></textarea>
-      <div class="helper">若選擇 7-11 取貨，請提供門市名稱或之後於賣貨便頁面選擇。</div>
-    </div>
-
     <div class="field">
-      <label for="note">備註</label>
-      <textarea id="note" rows="2" placeholder="例如：與家人合併寄送、特殊需求…"></textarea>
+      <label>備註</label>
+      <textarea rows="2"></textarea>
     </div>
 
-    <div id="formError" class="error"></div>
-
-    <button type="submit" class="btn">我要匯款並前往 7-11 賣貨便</button>
-
-    <div class="back-link">
-      還沒填預購？<a href="preorder.html">先回去填預購頁</a>
-    </div>
+    <button type="submit" class="btn">確認送出 (模擬)</button>
+    <a href="cart.html" class="back-link">返回購物車</a>
   </form>
 
   <script>
-    const form = document.getElementById('shippingForm');
-    const errorBox = document.getElementById('formError');
-    const shippingType = document.getElementById('shippingType');
-    const storeField = document.getElementById('storeField');
-
-    shippingType.addEventListener('change', () => {
-      if (shippingType.value === 'face') {
-        storeField.style.opacity = '0.6';
-      } else {
-        storeField.style.opacity = '1';
-      }
-    });
-
-    form.addEventListener('submit', (e) => {
+    document.getElementById('shippingForm').addEventListener('submit', (e) => {
       e.preventDefault();
-      errorBox.style.display = 'none';
-      errorBox.textContent = '';
-
-      const name = document.getElementById('buyerName').value.trim();
-      const phone = document.getElementById('buyerPhone').value.trim();
-      const code = document.getElementById('transferCode').value.trim();
-      const ship = shippingType.value;
-      const note = document.getElementById('note').value.trim();
-      const storeInfo = document.getElementById('storeInfo').value.trim();
-
-      if (!name || !phone || !code || !ship) {
-        errorBox.style.display = 'block';
-        errorBox.textContent = '請先完成必填欄位（姓名、電話、匯款後五碼、取貨方式）。';
-        return;
-      }
-
-      if (!/^[0-9]{5}$/.test(code)) {
-        errorBox.style.display = 'block';
-        errorBox.textContent = '匯款後五碼需為 5 位數字。';
-        return;
-      }
-
-      const payload = { name, phone, code, ship, storeInfo, note };
-      console.log('送貨資訊（準備送往後端比對）：', payload);
-
-      // TODO: 這裡可以串接後端 / Google Sheet 檢查是否有預購紀錄
-
-      const sevenUrl = 'https://myship.7-11.com.tw/';
-      window.location.href = sevenUrl;
+      alert('訂單已送出！(此為展示網站，不會實際扣款)');
+      localStorage.removeItem('mulivelivekCart'); // 清空購物車
+      window.location.href = 'index.html'; // 回首頁
     });
   </script>
 </body>
