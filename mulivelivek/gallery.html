@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mulivelivek 初鹿部落｜部落映像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* 與首頁一致的樣式 */
+    :root { --bg: #f7f3ec; --bg-soft: #fffdf8; --card: #ffffff; --border: #e3ddcf; --accent: #c58543; --text: #2f2415; --muted: #7b6d5c; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 20; background: #ffffffdd; backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .brand-text-main { font-weight: 600; }
+    .header-nav { display: flex; gap: 16px; font-size: 0.85rem; color: var(--muted); }
+    .header-nav a:hover, .header-nav a.active { color: var(--accent); }
+    
+    .header-cart-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-soft); font-size: 0.8rem; cursor: pointer; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 40px 16px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; grid-auto-rows: 240px; grid-auto-flow: dense; }
+    .photo-item { position: relative; background: #e5ded1; border-radius: 12px; overflow: hidden; cursor: pointer; }
+    .photo-item:hover { transform: translateY(-4px); transition: 0.3s; }
+    .photo-img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-item.wide { grid-column: span 2; }
+    .photo-item.tall { grid-row: span 2; }
+    
+    @media (max-width: 600px) { .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: auto; } .photo-item { aspect-ratio: 4/3; grid-column: auto !important; grid-row: auto !important; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-text-main">Mulivelivek</div>
+      <nav class="header-nav">
+        <a href="index.html">首頁</a>
+        <a href="products.html">所有商品</a>
+        <a href="gallery.html" class="active">部落相簿</a>
+        <a href="order-tracking.html">訂單查詢</a>
+      </nav>
+      <a href="cart.html" class="header-cart-pill">購物車 <span id="headerCartCount">0</span></a>
+    </div>
+  </header>
+
+  <main class="page">
+    <h1 style="text-align:center; color:var(--accent-dark);">部落映像 Gallery</h1>
+    <div class="gallery-grid">
+      <div class="photo-item wide">
+        <img src="https://images.unsplash.com/photo-1533228876829-65c94e7b5025?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" class="photo-img">
+      </div>
+      <div class="photo-item tall">
+        <img src="https://images.unsplash.com/photo-1517260739337-6799d2eb9ce0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="photo-img">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1621682372775-533449e5502d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="photo-img">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1618212624319-35e670989e49?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="photo-img">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1542382156-9d32d4310cb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" class="photo-img">
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    function loadCart() { try { return JSON.parse(localStorage.getItem('mulivelivekCart') || '[]'); } catch { return []; } }
+    document.getElementById('headerCartCount').textContent = loadCart().reduce((s,i)=>s+(i.quantity||0),0);
+  </script>
+</body>
+</html>
